@@ -1,5 +1,6 @@
 lab3-data/
 
+
 logs
 *.log
 npm-debug.log*
