@@ -2,8 +2,13 @@ const express = require('express');
 const app = express();
 const port = 3000;
 
-app.get('/', (req, res) => {
-    res.send('Hello World!');
+const genre = [];
+
+app.use('/', express.static('static'));
+
+app.get('/api/genre', (req, res) => {
+    console.log(`GET request for ${req.url}`);
+    res.send(genre);
 });
 
 app.listen(port, () => {
