@@ -29,7 +29,18 @@ async function SearchByArtist(artist){
 // Adding the SEarch by Track or Album request
 
 async function SearchByTrack(track){
-    fetch("http://localhost:5000/TrckAl/" + track)
+    fetch("http://localhost:5000/Track/" + track)
+    .then((res) => res.json())
+    .then((data) => {
+        var i = Object.keys(data).length;
+        for(var i = 0 ; i < Object.keys(data).length ; i++ ){
+        console.log(data[i]);
+        }
+    })
+}
+
+async function SearchByAlbum(album){
+    fetch("http://localhost:5000/Album/" + album)
     .then((res) => res.json())
     .then((data) => {
         var i = Object.keys(data).length;

@@ -8,7 +8,8 @@ const { parse } = require("csv-parse");
 
 var Genre = [];
 var Artist = [];
-var trackAlbum = [];
+var track= [];
+var album = [];
 let result = [];
 
 // Creating the back end handler for Search by Genre request
@@ -86,7 +87,7 @@ fs.createReadStream("./lab3-data/artists.csv")
 
   fs.createReadStream("./lab3-data/tracks.csv")
     .pipe(parse({ delimiter:",", from_line: 2 }))
-    .on("data", row => trackAlbum.push(row))
+    .on("data", function(row){track.push(row); album.push(row)} )
     .on("end", function(){
       console.log("Finished reading tracks");
     })
@@ -94,10 +95,10 @@ fs.createReadStream("./lab3-data/artists.csv")
       console.log(error.message);
     });
 
-    function searchByTrack(TrckAlName){
-      for (let i=0; i<trackAlbum.length; i++){
-        var phrase = new RegExp(TrckAlName, "gi");
-        if (trackAlbum[i][3].match(phrase) != null || trackAlbum[i][4].match(phrase) != null){
+    function searchByTrack(Track){
+      for (let i=0; i<track.length; i++){
+        var phrase = new RegExp(Track, "gi");
+        if (track[i][3].match(phrase) != null){
           console.log(trackAlbum[i][3]);
           result.push(trackAlbum[i][3])
         }
@@ -105,9 +106,24 @@ fs.createReadStream("./lab3-data/artists.csv")
       }
     }
 
+    function searchByAlbum(Album){
+      for (let i=0; i<album.length; i++){
+        var phrase = new RegExp(Album, "gi");
+        if (album[i][4].match(phrase) != null){
+          console.log(album[i][3]);
+          result.push(album[i][3])
+        }
 
-    app.get ('/TrckAl/:name', (req, res) => {
+      }
+    }
+    app.get ('/Track/:name', (req, res) => {
       searchByTrack(req.params.name);
+      res.send(result);
+      result.length = 0;
+    })
+
+    app.get ('/Album/:name', (req, res) => {
+      searchByAlbum(req.params.name);
       res.send(result);
       result.length = 0;
     })
