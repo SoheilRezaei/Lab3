@@ -82,7 +82,35 @@ fs.createReadStream("./lab3-data/artists.csv")
   });
 
 
+  // Now let's create the Track & Album search request handler
 
+  fs.createReadStream("./lab3-data/tracks.csv")
+    .pipe(parse({ delimiter:",", from_line: 2 }))
+    .on("data", row => trackAlbum.push(row))
+    .on("end", function(){
+      console.log("Finished reading tracks");
+    })
+    .on("error", function(error) {
+      console.log(error.message);
+    });
+
+    function searchByTrack(TrckAlName){
+      for (let i=0; i<trackAlbum.length; i++){
+        var phrase = new RegExp(TrckAlName, "gi");
+        if (trackAlbum[i][3].match(phrase) != null || trackAlbum[i][4].match(phrase) != null){
+          console.log(trackAlbum[i][3]);
+          result.push(trackAlbum[i][3])
+        }
+
+      }
+    }
+
+
+    app.get ('/TrckAl/:name', (req, res) => {
+      searchByTrack(req.params.name);
+      res.send(result);
+      result.length = 0;
+    })
 
 
 app.use('/', express.static('static'));
