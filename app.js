@@ -28,7 +28,7 @@ fs.createReadStream("./lab3-data/genres.csv")
   
   function searchByGenre(genreName) {
     for (let i=0; i<Genre.length; i++){
-      var phrase = new RegExp(genreName, "gi");
+      var phrase = new RegExp(genreName, "g");
       let Result = Genre[i][3].match(phrase);
       if (Result != null){
         console.log(Genre[i][3]);
@@ -67,7 +67,7 @@ fs.createReadStream("./lab3-data/artists.csv")
   
   function searchByArtists(artistName){
     for(let i=0; i<Artist.length; i++){
-      var phrase = new RegExp(artistName, "gi");
+      var phrase = new RegExp(artistName, "g");
       let Result = Artist[i][1].match(phrase);
       if (Result != null){
         console.log(Artist[i][1]);
@@ -97,7 +97,7 @@ fs.createReadStream("./lab3-data/artists.csv")
 
     function searchByTrack(Track){
       for (let i=0; i<track.length; i++){
-        var phrase = new RegExp(Track, "gi");
+        var phrase = new RegExp(Track, "g");
         if (track[i][3].match(phrase) != null){
           console.log(trackAlbum[i][3]);
           result.push(trackAlbum[i][3])
@@ -108,7 +108,7 @@ fs.createReadStream("./lab3-data/artists.csv")
 
     function searchByAlbum(Album){
       for (let i=0; i<album.length; i++){
-        var phrase = new RegExp(Album, "gi");
+        var phrase = new RegExp(Album, "g");
         if (album[i][4].match(phrase) != null){
           console.log(album[i][3]);
           result.push(album[i][3])
