@@ -1,5 +1,6 @@
 body {
     font-family: Roboto, RobotoDraft, Arial, Helvetica, sans-serif;
+    background-color: rgba(0, 134, 134, 0.637);
 }
 h1 {
     color: white;
@@ -11,3 +12,25 @@ p.intro {
     padding: 20px;
     background-color: aquamarine;
 }
+
+html{
+    zoom: 100%;
+}
+
+.divstyle{
+margin-top: 60px;
+text-align: center;
+}   
+.inputstyle {
+border-radius: 20px;
+height: 25px;
+
+}
+.searchimg{
+height: 21px;
+width: 21px;
+vertical-align: middle;
+margin-right: 80px;
+}
+
+

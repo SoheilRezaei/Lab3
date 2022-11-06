@@ -3,11 +3,18 @@
     <head>
         <meta charset="utf8">
         <title>Genres of Music</title>
-        <link rel="stylesheet" href="style.css">
-        <link rel="script" href="script.js">
+        <link rel="stylesheet" href="./style.css">
+        <script  src="./script.js"></script>
     </head>
     <body>
-        <h1>Music Genres</h1>
-        <p class="intro">What's your jam today?</p>
+        <div class="divstyle">
+            <input id="genre"  class="inputstyle" placeholder=" Search by Genre...">
+            <input onclick="SearchByGenre(document.getElementById('genre').value)"   class="searchimg" type="image" src="https://www.freeiconspng.com/thumbs/search-icon-png/search-icon-png-5.png">
+            <input id="artist"  class="inputstyle"  placeholder=" Search by Artist...">
+            <input onclick="SearchByArtist((document.getElementById('artist').value));" class="searchimg" type="image" src="https://www.freeiconspng.com/thumbs/search-icon-png/search-icon-png-5.png">
+            <input id="track" class="inputstyle" placeholder=" Search by Track/Album...">
+            <input onclick="SearchByTrack((document.getElementById('track').value));" class="searchimg" type="image" src="https://www.freeiconspng.com/thumbs/search-icon-png/search-icon-png-5.png">
+            </div>
+    </div>
     </body>
 </html>
