@@ -35,7 +35,7 @@ fs.createReadStream("./lab3-data/genres.csv")
         for (let j=0; j<Genre.length; j++){
           if (Genre[i][4] == Genre[j][0]){
             console.log(" SubGenre of : " + Genre[j][3]);
-            result.push([Genre[i][3], Genre[j][3]]);
+            result.push([Genre[i][0], Genre[i][3], Genre[j][0], Genre[j][3]]);
           }
         }
       }
@@ -103,8 +103,8 @@ fs.createReadStream("./lab3-data/artists.csv")
       for (let i=0; i<track.length; i++){
         var phrase = new RegExp(Track, "gi");
         if (track[i][3].match(phrase) != null){
-          console.log(trackAlbum[i][3]);
-          result.push(trackAlbum[i][3])
+          console.log(track[i][3]);
+          result.push(track[i])
         }
 
       }
@@ -115,16 +115,16 @@ fs.createReadStream("./lab3-data/artists.csv")
         var phrase = new RegExp(Album, "gi");
         if (album[i][4].match(phrase) != null){
           console.log(album[i][3]);
-          result.push(album[i][3])
+          result.push(album[i])
         }
 
       }
     }
     app.get ('/Track/:name', (req, res) => {
       searchByTrack(req.params.name);
-      if (result.length < 20){
+    //  if (result.length < 20){
         res.send(result);
-      }
+      //}
       result.length = 0;
     })
 

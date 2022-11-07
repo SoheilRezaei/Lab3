@@ -26,6 +26,14 @@ border-radius: 20px;
 height: 25px;
 
 }
+
+.inputstyle2 {
+    border-radius: 20px;
+    height: 25px;
+    margin: 20px;
+    padding: 20px;
+}
+
 .searchimg{
 height: 21px;
 width: 21px;
@@ -33,4 +41,93 @@ vertical-align: middle;
 margin-right: 80px;
 }
 
+.ulstyle{
+    list-style-type: none;
+    align-items: center;
+    vertical-align: middle;
+    text-align: center;
+}
+.listyle{
+    float: left;
+    align-items: center;
+    vertical-align: center;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 30px;
+    display: inline;
+}
+.GenresearchStyle{
+    background-color: rgba(184, 255, 231, 0.877);
+    border-radius: 20px;
+    text-align: center;
+    justify-content: center;
+    height: 210px;
+    width: 210px;
+    padding: 40px;
+    
+}
 
+.ArtistsearchStyle{
+    background-color: rgba(184, 255, 231, 0.877);
+    border-radius: 20px;
+    text-align: center;
+    justify-content: center;
+    height: 340px;
+    width: 240px;
+    padding: 40px;
+    
+}
+
+.searchimgstyle{
+    width: 110px;
+    height: 110px;
+    margin-bottom: 15px;
+    padding: 0px;
+    
+    }
+/* Popup container - can be anything you want */
+.popup {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  
+  /* The actual popup */
+  .popup .popuptext {
+    visibility: hidden;
+    width: 160px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -80px;
+  }
+  
+  /* Popup arrow */
+  .popup .popuptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+  }
+  
+  /* Toggle this class - hide and show the popup */
+  .popup .show {
+    visibility: visible;
+    -webkit-animation: fadeIn 1s;
+    animation: fadeIn 1s;
+  }
+  
