@@ -52,6 +52,7 @@ async function SearchByTrack(track){
 
 async function SearchByAlbum(album){
     resultCount = 0;
+    console.log(album);
     fetch("http://localhost:5000/Album/" + album)
     .then((res) => res.json())
     .then((data) => {
@@ -61,6 +62,7 @@ async function SearchByAlbum(album){
         resultCount += 1;    
         console.log(data[i]);
         }
+        if (resultCount == 0) alert("No results found!");
     })
 }
 
@@ -81,7 +83,7 @@ function createGenreElement(newResult){
     newli.appendChild(newdiv);
 
     var newimg = document.createElement("img");
-    newimg.setAttribute("src","/lab3-data/album.png");
+    newimg.setAttribute("src","../lab3-data/album.png");
     newimg.setAttribute("class","searchimgstyle");
     newdiv.appendChild(newimg);
     newdiv.appendChild(document.createElement("br"));
@@ -113,7 +115,7 @@ function createArtistElement(newResult){
     newli.appendChild(newdiv);
 
     var newimg = document.createElement("img");
-    newimg.setAttribute("src","lab3-data/artist.png");
+    newimg.setAttribute("src","../lab3-data/artist.png");
     newimg.setAttribute("class","searchimgstyle");
     newdiv.appendChild(newimg);
     newdiv.appendChild(document.createElement("br"));
@@ -161,7 +163,7 @@ function createSearchElement(newResult){
     newli.appendChild(newdiv);
 
     var newimg = document.createElement("img");
-    newimg.setAttribute("src","lab3-data/music.png");
+    newimg.setAttribute("src","../lab3-data/music.png");
     newimg.setAttribute("class","searchimgstyle");
     newdiv.appendChild(newimg);
     newdiv.appendChild(document.createElement("br"));
