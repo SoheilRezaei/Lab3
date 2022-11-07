@@ -36,22 +36,29 @@ async function SearchByArtist(artist){
 // Adding the Search by Track or Album request
 
 async function SearchByTrack(track){
+    resultCount = 0;
     fetch("http://localhost:5000/Track/" + track)
     .then((res) => res.json())
     .then((data) => {
         var i = Object.keys(data).length;
         for(var i = 0 ; i < Object.keys(data).length ; i++ ){
+        createSearchElement(data[i]);
+        resultCount += 1;
         console.log(data[i]);
         }
+        if (resultCount == 0) alert("No results found!");
     })
 }
 
 async function SearchByAlbum(album){
+    resultCount = 0;
     fetch("http://localhost:5000/Album/" + album)
     .then((res) => res.json())
     .then((data) => {
         var i = Object.keys(data).length;
         for(var i = 0 ; i < Object.keys(data).length ; i++ ){
+        createSearchElement(data[i]);
+        resultCount += 1;    
         console.log(data[i]);
         }
     })
@@ -143,3 +150,42 @@ function createArtistElement(newResult){
 }
 
 
+
+function createSearchElement(newResult){
+    const newli = document.createElement("li");
+    newli.setAttribute("class","listyle");
+    newList.appendChild(newli);
+
+    var newdiv = document.createElement("div");
+    newdiv.setAttribute("class","ArtistsearchStyle");
+    newli.appendChild(newdiv);
+
+    var newimg = document.createElement("img");
+    newimg.setAttribute("src","/music.png");
+    newimg.setAttribute("class","searchimgstyle");
+    newdiv.appendChild(newimg);
+    newdiv.appendChild(document.createElement("br"));
+
+    const addButton = document.createElement("button")
+    addButton.appendChild(document.createTextNode("Add to"))
+    addButton.setAttribute("onclick" , "showlist('"+newResult[0]+"')");
+    newdiv.appendChild(addButton);
+    newdiv.appendChild(document.createElement("br"));
+    newdiv.appendChild(document.createTextNode("Album Name : " + newResult[3]));
+    newdiv.appendChild(document.createElement("br"));
+    newdiv.appendChild(document.createTextNode("Track Name : " + newResult[4]));
+    newdiv.appendChild(document.createElement("br"));
+    newdiv.appendChild(document.createTextNode("Artist Handle : " + newResult[5]));
+    newdiv.appendChild(document.createElement("br"));
+    newdiv.appendChild(document.createTextNode("TAG : " + newResult[6]));
+    newdiv.appendChild(document.createElement("br"));
+    newdiv.appendChild(document.createTextNode("Data created : " + newResult[7]));
+    newdiv.appendChild(document.createElement("br"));
+    newdiv.appendChild(document.createTextNode("Data recorded : " + newResult[8]));
+    newdiv.appendChild(document.createElement("br"));
+    newdiv.appendChild(document.createTextNode("Duration : " + newResult[9]));
+    newdiv.appendChild(document.createElement("br"));
+    newdiv.appendChild(document.createTextNode("Track number : " + newResult[11]));
+    newdiv.appendChild(document.createElement("br"));
+
+}
