@@ -17,8 +17,11 @@
   },
   "homepage": "https://github.com/SoheilRezaei/Lab3#readme",
   "dependencies": {
+    "convert-array-to-csv": "^2.0.0",
     "csv": "^6.2.1",
+    "csv-parser": "^3.0.0",
     "express": "^4.18.2",
+    "joi": "^17.7.0",
     "sqlite3": "^5.1.2"
   }
 }

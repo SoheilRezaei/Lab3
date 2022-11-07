@@ -1,8 +1,12 @@
+const { convertArrayToCSV } = require('convert-array-to-csv');
+const converter = require('convert-array-to-csv');
+const csv = require('csv-parser');
 const express = require('express');
 const app = express();
 const router = express.Router();
+const Joi = require('joi');
 
-
+const listHeader = ['List_ID', 'Track_ID'];
 const fs = require("fs");
 const { parse } = require("csv-parse");
 
@@ -10,6 +14,8 @@ var Genre = [];
 var Artist = [];
 var track= [];
 // var album = [];
+let playlist = [];
+let list = [];
 let result = [];
 
 // Creating the back end handler for Search by Genre request
@@ -100,8 +106,9 @@ fs.createReadStream("./lab3-data/artists.csv")
     });
 
     function searchByTrack(Track){
+      var phrase = new RegExp(Track, "gi");
+      console.log(phrase);
       for (let i=0; i<track.length; i++){
-        var phrase = new RegExp(Track, "gi");
         if (track[i][4].match(phrase) != null){
           console.log(track[i][4]);
           result.push(track[i])
@@ -129,7 +136,7 @@ fs.createReadStream("./lab3-data/artists.csv")
     })
 
     app.get ('/Album/:name', (req, res) => {
-      console.log(req.params.name)
+      console.log(req.params.name);
       searchByAlbum(req.params.name);
       if (result.length < 20){
         res.send(result);
@@ -149,3 +156,63 @@ app.listen(port, () => {
     console.log(`Listening on port ${port}`);
 });
 
+fs.createReadStream("./lab3-data/playlist.csv")
+  .pipe(parse({ delimiter: ",", from_line: 2 }))
+  .on("data",  row => playlist.push(row))
+  .on("end" , function(){
+    console.log("kir to jagath");
+  })
+  .on("error", function (error) {
+    console.log(error.message);
+  });
+
+  app.get('/playlist' , (req , res) =>{
+
+    res.send(playlist);
+    result.length = 0;
+    });
+
+      
+fs.createReadStream("./lab3-data/List.csv")
+.pipe(parse({ delimiter: ",", from_line: 2 }))
+.on("data",  row => list.push(row))
+.on("end" , function(){
+  console.log("kir tu sam");
+})
+.on("error", function (error) {
+  console.log(error.message);
+});
+
+function addToList(playlistName){
+  for(let i=0;i<list.length;i++){
+      if (list[i][0] == playlistName){
+        result.push(list[i][1]);
+        }
+      }
+      console.log(result);
+}
+
+app.get('/playlist/:playlist_Name' , (req , res) =>{
+  addToList(req.params.playlist_Name);
+  res.send(result);
+  result.length = 0;
+  });
+
+  app.get('/:playlist/:trackid' , (req , res) =>{
+
+    list.push([ req.params.playlist  , req.params.trackid ]);
+    console.log(list);
+    const val = convertArrayToCSV(list, {
+      listHeader,
+      seperator: ','
+    });
+    console.log(val);
+
+    fs.writeFile('./lab3-data/List.csv', val, (err) => {
+      if (err) throw err;
+      console.log('The file has been saved!');
+    });    
+    res.send(result);
+    result.length = 0;
+    });
+  

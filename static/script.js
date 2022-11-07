@@ -66,6 +66,25 @@ async function SearchByAlbum(album){
     })
 }
 
+async function showlist(trackID){
+     fetch("http://localhost:5000/playlist" )
+     .then((res) => res.json())
+     .then((data) => {
+         var i = Object.keys(data).length;
+         for(var i = 0 ; i < Object.keys(data).length ; i++ ){
+         console.log(data[i]);
+         createList(data[i] , trackID);
+         }
+     })
+ 
+ }
+
+ async function addToList(playlistName , trackID){
+    console.log("track id : " + trackID);
+    fetch("http://localhost:5000/" + playlistName + "/" + trackID );
+}
+
+
 
 const searchDiv = document.getElementById("searchDiv");
 const newList = document.createElement("ul") ;
@@ -199,3 +218,14 @@ function createSearchElement(newResult){
     newdiv.appendChild(document.createElement("br"));
 
 }
+
+
+function createList(res , trackID){
+    const newButton =  document.createElement("button");
+    newButton.appendChild(document.createTextNode(res));
+    newButton.setAttribute("class" , "inputstyle2   ");
+    newButton.setAttribute("onclick", "addToList('"+ res+"','"+trackID +"')");
+    searchDiv.insertBefore(newButton , newList );
+   
+}
+
