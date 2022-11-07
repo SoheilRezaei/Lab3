@@ -1,24 +1,29 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf8">
-        <title>Music Demo Lab 3</title>
-        <link rel="stylesheet" href="./style.css">
-        <script  src="./script.js" defer></script>
-    </head>
-    <body>
-        <div class="divstyle">
-            <input id="genre"  class="inputstyle" placeholder=" Search by Genre...">
-            <input onclick="SearchByGenre(document.getElementById('genre').value)"   class="searchimg" type="image" src="https://www.freeiconspng.com/thumbs/search-icon-png/search-icon-png-5.png">
-            <input id="artist"  class="inputstyle"  placeholder=" Search by Artist...">
-            <input onclick="SearchByArtist((document.getElementById('artist').value));" class="searchimg" type="image" src="https://www.freeiconspng.com/thumbs/search-icon-png/search-icon-png-5.png">
-            <input id="track" class="inputstyle" placeholder=" Search by Track...">
-            <input onclick="SearchByTrack((document.getElementById('track').value));" class="searchimg" type="image" src="https://www.freeiconspng.com/thumbs/search-icon-png/search-icon-png-5.png">
-            <input id="album" class="inputstyle" placeholder=" Search by Album...">
-            <input onclick="SearchByAlbum((document.getElementById('album').value));" class="searchimg" type="image" src="https://www.freeiconspng.com/thumbs/search-icon-png/search-icon-png-5.png">
-            </div>
-        </div>
-    <div id="searchDiv"></div>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="style.css">
+<script src="script.js" defer></script>
+<title>LAB TEST</title>
+</head>
+<body>
+    <div class="divstyle">
+        <input id="genre"  class="inputstyle" placeholder=" Search by Genre...">
+        <input onclick="SearchByGenre(document.getElementById('genre').value)"   class="searchimg" type="image" src="https://www.freeiconspng.com/thumbs/search-icon-png/search-icon-png-5.png">
+        <input id="artist"  class="inputstyle"  placeholder=" Search by Artist...">
+        <input onclick="searchByArtist((document.getElementById('artist').value));" class="searchimg" type="image" src="https://www.freeiconspng.com/thumbs/search-icon-png/search-icon-png-5.png">
+        <input id="track" class="inputstyle" placeholder=" Search by Track/Album...">
+        <input onclick="searchByTrack((document.getElementById('track').value));" class="searchimg" type="image" src="https://www.freeiconspng.com/thumbs/search-icon-png/search-icon-png-5.png">
+        <button class="inputstyle3" onclick="ShowPlaylist()"> Show Playlist </button>
 
-    </body>
+        </div>
+        <div id = "playlistDiv">
+        </div>
+        <div  id="searchDiv">
+        </div>
+
+
+
+
+</body>
 </html>

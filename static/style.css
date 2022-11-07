@@ -1,22 +1,9 @@
-body {
-    font-family: Roboto, RobotoDraft, Arial, Helvetica, sans-serif;
-    background-color: rgba(0, 134, 134, 0.637);
-}
-h1 {
-    color: white;
-    text-shadow: 1px 1px 2px black, 0 0 25px green 0 0 5px darkgreen;
-}
-p.intro {
-    border-radius: 25px;
-    border: 2px solid limegreen;
-    padding: 20px;
-    background-color: aquamarine;
-}
-
 html{
     zoom: 100%;
 }
-
+body{
+    background-color: rgba(0, 255, 255, 0.13);
+}
 .divstyle{
 margin-top: 60px;
 text-align: center;
@@ -29,11 +16,16 @@ height: 25px;
 
 .inputstyle2 {
     border-radius: 20px;
-    height: 25px;
+    background-color: rgba(0, 255, 255, 0.13);
     margin: 20px;
-    padding: 20px;
+    padding: 10px;
 }
 
+.inputstyle3 {
+    border-radius: 20px;
+    background-color: rgba(0, 255, 255, 0.13);
+    padding: 10px;
+}
 .searchimg{
 height: 21px;
 width: 21px;
@@ -78,6 +70,28 @@ margin-right: 80px;
     
 }
 
+.TracksearchStyle{
+    background-color: rgba(184, 255, 231, 0.877);
+    border-radius: 20px;
+    text-align: center;
+    justify-content: center;
+    height: 450px;
+    width: 240px;
+    padding: 40px;
+    
+}
+
+.TrackPlaylistStyle{
+    background-color: rgb(184, 255, 231);
+    border-radius: 20px;
+    text-align: center;
+    justify-content: center;
+    height: 300px;
+    width: 240px;
+    padding: 40px;
+    
+}
+
 .searchimgstyle{
     width: 110px;
     height: 110px;
@@ -85,49 +99,75 @@ margin-right: 80px;
     padding: 0px;
     
     }
-/* Popup container - can be anything you want */
-.popup {
-    position: relative;
-    display: inline-block;
-    cursor: pointer;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-  }
-  
-  /* The actual popup */
-  .popup .popuptext {
-    visibility: hidden;
-    width: 160px;
-    background-color: #555;
-    color: #fff;
+
+
+.searchdiv{
+padding: 10;
+align-items: center;
+text-align: center;
+}
+
+.playlistdiv{
+    
+    align-items: center;
     text-align: center;
-    border-radius: 6px;
-    padding: 8px 0;
-    position: absolute;
-    z-index: 1;
-    bottom: 125%;
-    left: 50%;
-    margin-left: -80px;
-  }
-  
-  /* Popup arrow */
-  .popup .popuptext::after {
-    content: "";
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    margin-left: -5px;
-    border-width: 5px;
-    border-style: solid;
-    border-color: #555 transparent transparent transparent;
-  }
-  
-  /* Toggle this class - hide and show the popup */
-  .popup .show {
-    visibility: visible;
-    -webkit-animation: fadeIn 1s;
-    animation: fadeIn 1s;
-  }
-  
+    width: fit-content;
+    height: fit-content;
+    display: inline-block;
+
+    }
+
+.playlistitemdiv{
+    border-radius: 20px;
+    margin: 20px;
+    background-color: rgba(184, 255, 231, 0.568);
+    display: inline-block;
+    width: 1080px;
+    height: max-content;
+    align-items: center;
+    text-align: center;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.imgdivstyle{
+    background-color: rgba(184, 255, 231, 0.877);
+    border-radius: 900px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    box-shadow: 50px;
+}
+
+
+.imgstyle{
+    margin-left: 20px;
+    margin-top: 250px;
+    height: 150px;
+    width: 150px;
+}
+
+
+
+
+
+
+
+
+
+
+.xdiv{
+display: inline-block;
+}
