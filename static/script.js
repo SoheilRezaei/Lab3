@@ -81,7 +81,7 @@ function createGenreElement(newResult){
     newli.appendChild(newdiv);
 
     var newimg = document.createElement("img");
-    newimg.setAttribute("src","./lab3-data/album.png");
+    newimg.setAttribute("src","/lab3-data/album.png");
     newimg.setAttribute("class","searchimgstyle");
     newdiv.appendChild(newimg);
     newdiv.appendChild(document.createElement("br"));
@@ -113,7 +113,7 @@ function createArtistElement(newResult){
     newli.appendChild(newdiv);
 
     var newimg = document.createElement("img");
-    newimg.setAttribute("src","/artist.png");
+    newimg.setAttribute("src","lab3-data/artist.png");
     newimg.setAttribute("class","searchimgstyle");
     newdiv.appendChild(newimg);
     newdiv.appendChild(document.createElement("br"));
@@ -161,7 +161,7 @@ function createSearchElement(newResult){
     newli.appendChild(newdiv);
 
     var newimg = document.createElement("img");
-    newimg.setAttribute("src","/music.png");
+    newimg.setAttribute("src","lab3-data/music.png");
     newimg.setAttribute("class","searchimgstyle");
     newdiv.appendChild(newimg);
     newdiv.appendChild(document.createElement("br"));
@@ -171,20 +171,28 @@ function createSearchElement(newResult){
     addButton.setAttribute("onclick" , "showlist('"+newResult[0]+"')");
     newdiv.appendChild(addButton);
     newdiv.appendChild(document.createElement("br"));
+
     newdiv.appendChild(document.createTextNode("Album Name : " + newResult[3]));
     newdiv.appendChild(document.createElement("br"));
+
     newdiv.appendChild(document.createTextNode("Track Name : " + newResult[4]));
     newdiv.appendChild(document.createElement("br"));
+
     newdiv.appendChild(document.createTextNode("Artist Handle : " + newResult[5]));
     newdiv.appendChild(document.createElement("br"));
+
     newdiv.appendChild(document.createTextNode("TAG : " + newResult[6]));
     newdiv.appendChild(document.createElement("br"));
+
     newdiv.appendChild(document.createTextNode("Data created : " + newResult[7]));
     newdiv.appendChild(document.createElement("br"));
+
     newdiv.appendChild(document.createTextNode("Data recorded : " + newResult[8]));
     newdiv.appendChild(document.createElement("br"));
+
     newdiv.appendChild(document.createTextNode("Duration : " + newResult[9]));
     newdiv.appendChild(document.createElement("br"));
+
     newdiv.appendChild(document.createTextNode("Track number : " + newResult[11]));
     newdiv.appendChild(document.createElement("br"));
 
