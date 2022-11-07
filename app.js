@@ -12,6 +12,7 @@ app.use(express.json());
 const router = express.Router();
 
 const listHeader = ['List_ID', 'Track_ID'];
+const playlistHeader = ['Playlist_Name'];
 
 
 
@@ -26,7 +27,7 @@ let list = [];
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-fs.createReadStream("./lab3-data/genres.csv")
+fs.createReadStream("./genres.csv")
   .pipe(parse({ delimiter: ",", from_line: 2 }))
   .on("data",  row => Genre.push(row))
   .on("end" , function(){
@@ -37,7 +38,7 @@ fs.createReadStream("./lab3-data/genres.csv")
   });
 
 
-  async function searchByGenre(genreName){
+  function searchByGenre(genreName){
     
     for(let i=0;i<Genre.length;i++){
         var searchname = new RegExp(genreName, "gi");
@@ -69,7 +70,7 @@ fs.createReadStream("./lab3-data/genres.csv")
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-fs.createReadStream("./lab3-data/artists.csv")
+fs.createReadStream("./artists.csv")
   .pipe(parse({ delimiter: ",", from_line: 2 }))
   .on("data",  row => Artist.push(row))
   .on("end" , function(){
@@ -81,7 +82,7 @@ fs.createReadStream("./lab3-data/artists.csv")
 
 
 
-async function searchByArtist(artistName){
+function searchByArtist(artistName){
     for(let i=0;i<Artist.length;i++){
         var searchname = new RegExp(artistName, "gi");
         let Result = Artist[i][1].match(searchname);
@@ -108,7 +109,7 @@ async function searchByArtist(artistName){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-fs.createReadStream("./lab3-data/tracks.csv")
+fs.createReadStream("./tracks.csv")
   .pipe(parse({ delimiter: ",", from_line: 2 }))
   .on("data",  row => trackAlbum.push(row))
   .on("end" , function(){
@@ -129,16 +130,9 @@ app.get ('/trackAlbum/:name' , (req , res) =>{
     
 });
 
-async function searchInTrack(trackId){
-  for (let i=0; i<trackAlbum.length; i++){
-    if (trackId == trackAlbum[i][0]){
-      result = trackAlbum[i];
-    }
-  }
 
-}
 
-async function searchByTrack(trackAlbumName){
+function searchByTrack(trackAlbumName){
   var searchname = new RegExp(trackAlbumName, "gi");
   console.log(searchname);
     for(let i=0;i<trackAlbum.length;i++){
@@ -154,8 +148,8 @@ async function searchByTrack(trackAlbumName){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-fs.createReadStream("./lab3-data/playlist.csv")
-  .pipe(parse({ delimiter: ",", from_line: 2 }))
+fs.createReadStream("./playlist.csv")
+  .pipe(parse({ delimiter: ",", from_line: 1 }))
   .on("data",  row => playlist.push(row))
   .on("end" , function(){
     console.log("kir to jagath");
@@ -177,8 +171,8 @@ result.length = 0;
 
 
   
-fs.createReadStream("./lab3-data/List.csv")
-.pipe(parse({ delimiter: ",", from_line: 2 }))
+fs.createReadStream("./List.csv")
+.pipe(parse({ delimiter: ",", from_line: 1 }))
 .on("data",  row => list.push(row))
 .on("end" , function(){
   console.log("kir tu sam");
@@ -188,28 +182,19 @@ fs.createReadStream("./lab3-data/List.csv")
 });
 
 
-app.get ('/getTrack/:trackID', (req, res) => {
-  console.log("track id server : "+ req.params.trackID);
-  searchInTrack(req.params.trackID);
-  res.send(result);
-  result.length=0;
-});
-
-
 
 
 app.get('/playlist/:playlist/:trackid' , (req , res) =>{
 
     // UpdatePlayList(req.params.playlist , req.params.trackid);
     list.push([ req.params.playlist  , req.params.trackid ]);
-    console.log(list);
     const val = convertArrayToCSV(list, {
       listHeader,
       seperator: ','
     });
     console.log(val);
 
-    fs.writeFile('./lab3-data/List.csv', val, (err) => {
+    fs.writeFile('./List.csv', val, (err) => {
       if (err) throw err;
       console.log('The file has been saved!');
     });    
@@ -217,6 +202,25 @@ app.get('/playlist/:playlist/:trackid' , (req , res) =>{
     result.length = 0;
     });
   
+
+///////////////////////////////////////////////////////////////////////////
+
+
+app.get ('/getTrack/:trackID', (req, res) => {
+  searchInTrack(req.params.trackID);
+  res.send(result);
+  result = [];
+});
+
+function searchInTrack(trackId){
+  for (let i=0; i<trackAlbum.length; i++){
+    if (trackId == trackAlbum[i][0]){
+      result = trackAlbum[i];
+    }
+  }
+
+}
+
 
 
 
@@ -238,7 +242,7 @@ app.get('/GetplaylistItem/:playlistname' , (req , res) =>{
   result.length = 0;
   });
 
-async function returnplaylistItem(playlistname){
+function returnplaylistItem(playlistname){
   for ( i = 0 ; i<list.length ; i++){
     if(list[i][0] == playlistname){
       result.push(list[i][1]);
@@ -251,28 +255,92 @@ async function returnplaylistItem(playlistname){
 
 /////////////////////////////////////////////////////////////////
 
+app.get('/RemovePlayList/:playlistname' , (req , res) =>{
+  RemoveFromPlaylist(req.params.playlistname);
+  res.status(200).send();
+  result.length = 0;
+  });
 
-
-
-
-
-
-
-
-
-
-
-
-const courses = [
-    {id : 1 , name : 'behzad'},
-    {id : 2 , name : 'pardis'},
-    {id : 3 , name : 'ali'},
-];
-
-app.get ('/api/courses' , (req , res) =>{
-    res.send (courses);
-    console.log(Genre.length);
+function RemoveFromPlaylist(playlistname){
+  for ( i = 0 ; i<playlist.length ; i++){
+    if(playlist[i] == playlistname){
+      playlist.splice(i,1);
+    }
+  }
+  
+const val = convertArrayToCSV(playlist, {
+  playlistHeader,
+  seperator: ','
 });
+
+fs.writeFile('./playlist.csv', val, (err) => {
+  if (err) throw err;
+  console.log('The playlist file has been saved!');
+});    
+
+
+  console.log(playlist);
+}
+
+
+
+
+
+
+////////////////////////////////////////////////////////////////////
+
+app.get('/AddtoPlayList/:nameofplaylist' , (req , res) =>{
+  Addnewplaylist(req.params.nameofplaylist)
+  res.status(200).send();
+  result.length = 0;
+  });
+  
+  
+function Addnewplaylist(playlistname){
+  flag = 0;
+  for ( i = 0 ; i<playlist.length ; i++){
+    if(playlist[i] == playlistname){
+      res.send("unable to add");
+      flag = 1;
+    }
+    
+  }
+  if (flag==0){
+    playlist.push([playlistname]);
+  }
+
+
+
+  const val = convertArrayToCSV(playlist, {
+    playlistHeader,
+    seperator: ','
+  });
+  
+  fs.writeFile('./playlist.csv', val, (err) => {
+    if (err) throw err;
+    console.log('The playlist file has been saved!');
+  });    
+  
+  
+    console.log(playlist);
+  
+}
+
+
+
+///////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
