@@ -35,7 +35,7 @@ fs.createReadStream("./lab3-data/genres.csv")
 
 
   function searchByGenre(genreName){
-
+    
     for(let i=0;i<Genre.length;i++){
         var searchname = new RegExp(genreName, "gi");
         let Result = Genre[i][3].match(searchname);

@@ -2,6 +2,8 @@ let resultCount = 0;
 let clearCount = 0;
 let trackID;
 let trackDetail = [];
+
+
 async function SearchByGenre(genre) {
     clearList();
     clearplaylistSearch();
@@ -136,6 +138,57 @@ function RemovePlaylist(playlistname) {
 
 
 }
+
+
+const searchGenre = document.getElementById('genre');
+const searchArtist = document.getElementById('artist');
+const searchTrack = document.getElementById('track');
+// const newPlaylist = document.getElementById('nameofnewplaylist');
+
+searchGenre.addEventListener("keypress", (evt) => {
+    const theEvent = evt || window.event;
+    let key = theEvent.keyCode || theEvent.which;
+    key = String.fromCharCode(key);
+    const regex = /^[a-zA-Z0-9_]+$/;
+    if (!regex.test(key)) {
+        theEvent.returnValue = false;
+        if (theEvent.preventDefault) theEvent.preventDefault();
+    }
+});
+
+searchArtist.addEventListener("keypress", (evt) => {
+    const theEvent = evt || window.event;
+    let key = theEvent.keyCode || theEvent.which;
+    key = String.fromCharCode(key);
+    const regex = /^[a-zA-Z0-9_]*$/;
+    if (!regex.test(key)) {
+        theEvent.returnValue = false;
+        if (theEvent.preventDefault) theEvent.preventDefault();
+    }
+});
+
+searchTrack.addEventListener("keypress", (evt) => {
+    const theEvent = evt || window.event;
+    let key = theEvent.keyCode || theEvent.which;
+    key = String.fromCharCode(key);
+    const regex = /^[a-zA-Z0-9_]*$/;
+    if (!regex.test(key)) {
+        theEvent.returnValue = false;
+        if (theEvent.preventDefault) theEvent.preventDefault();
+    }
+});
+
+// newPlaylist.addEventListener("keypress", (evt) => {
+//     const theEvent = evt || window.event;
+//     let key = theEvent.keyCode || theEvent.which;
+//     key = String.fromCharCode(key);
+//     const regex = /^[a-zA-Z0-9_]*$/;
+//     if (!regex.test(key)) {
+//         theEvent.returnValue = false;
+//         if (theEvent.preventDefault) theEvent.preventDefault();
+//     }
+// });
+
 
 function AddPlaylistMenu() {
     clearcreatenewplaylist();
