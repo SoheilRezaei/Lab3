@@ -4,18 +4,21 @@
 <meta charset="utf-8">
 <link rel="stylesheet" href="style.css">
 <script src="script.js" defer></script>
-<title>LAB TEST</title>
+<title>LAB 3 Music Website</title>
 </head>
 <body>
     <div class="divstyle">
         <input id="genre"  class="inputstyle" placeholder=" Search by Genre...">
-        <input onclick="SearchByGenre(document.getElementById('genre').value)"   class="searchimg" type="image" src="">
+        <input onclick="SearchByGenre(document.getElementById('genre').value)"   class="searchimg" type="image" src="" alt="">
+
         <input id="artist"  class="inputstyle"  placeholder=" Search by Artist...">
-        <input onclick="SearchByArtist((document.getElementById('artist').value));" class="searchimg" type="image" src="">
+        <input onclick="SearchByArtist((document.getElementById('artist').value));" class="searchimg" type="image" src="" alt="">
+       
         <input id="track" class="inputstyle" placeholder=" Search by Track/Album...">
-        <input onclick="SearchByTrack((document.getElementById('track').value));" class="searchimg" type="image" src="">
+        <input onclick="SearchByTrack((document.getElementById('track').value));" class="searchimg" type="image" src="" alt="">
+       
         <button class="inputstyle3" onclick="SrshowPlaylist()"> Show Playlist </button>
-        <button class="inputstyle3" onclick="AddPlaylistMenu()" > Create New Playlist</input>
+        <button class="inputstyle3" onclick="AddPlaylistMenu()" > Create New Playlist</button>
         
     </div>
     <div id = "playlistDiv">
