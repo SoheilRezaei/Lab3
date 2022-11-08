@@ -2,7 +2,7 @@ html{
     zoom: 100%;
 }
 body{
-    background-color: rgba(0, 255, 255, 0.13);
+    background-color: rgba(0, 0, 0, 0.808);
 }
 .divstyle{
 margin-top: 60px;
@@ -16,16 +16,22 @@ height: 25px;
 
 .inputstyle2 {
     border-radius: 20px;
-    background-color: rgba(0, 255, 255, 0.13);
+    background-color: rgba(168, 14, 147, 0.438);
     margin: 20px;
     padding: 10px;
 }
 
 .inputstyle3 {
     border-radius: 20px;
-    background-color: rgba(0, 255, 255, 0.13);
+    background-color: rgba(234, 0, 255, 0.644);
     padding: 10px;
 }
+
+.createplaylistdiv{
+    margin-top: 60px;
+    text-align: center;
+    } 
+
 .searchimg{
 height: 21px;
 width: 21px;
@@ -33,6 +39,18 @@ vertical-align: middle;
 margin-right: 80px;
 }
 
+.deleteplaylistimg{
+    height: 30px;
+    width: 30px;
+    vertical-align: middle;
+    }
+
+.Addplaylistimg{
+    height: 21px;
+    width: 21px;
+    vertical-align: middle;
+    margin-right: 80px;
+        }
 .ulstyle{
     list-style-type: none;
     align-items: center;
@@ -49,7 +67,7 @@ margin-right: 80px;
     display: inline;
 }
 .GenresearchStyle{
-    background-color: rgba(184, 255, 231, 0.877);
+    background-color: rgba(47, 131, 14, 0.685);
     border-radius: 20px;
     text-align: center;
     justify-content: center;
@@ -60,7 +78,7 @@ margin-right: 80px;
 }
 
 .ArtistsearchStyle{
-    background-color: rgba(184, 255, 231, 0.877);
+    background-color: rgba(214, 182, 38, 0.603);
     border-radius: 20px;
     text-align: center;
     justify-content: center;
@@ -71,7 +89,7 @@ margin-right: 80px;
 }
 
 .TracksearchStyle{
-    background-color: rgba(184, 255, 231, 0.877);
+    background-color: rgba(216, 55, 208, 0.623);
     border-radius: 20px;
     text-align: center;
     justify-content: center;
@@ -82,7 +100,7 @@ margin-right: 80px;
 }
 
 .TrackPlaylistStyle{
-    background-color: rgb(184, 255, 231);
+    background-color: rgba(147, 94, 182, 0.582);
     border-radius: 20px;
     text-align: center;
     justify-content: center;
@@ -120,7 +138,7 @@ text-align: center;
 .playlistitemdiv{
     border-radius: 20px;
     margin: 20px;
-    background-color: rgba(184, 255, 231, 0.568);
+    background-color: rgba(104, 0, 14, 0.568);
     display: inline-block;
     width: 1080px;
     height: max-content;
@@ -143,7 +161,7 @@ text-align: center;
 
 
 .imgdivstyle{
-    background-color: rgba(184, 255, 231, 0.877);
+    background-color: rgba(56, 117, 209, 0.877);
     border-radius: 900px;
     text-align: center;
     display: flex;
