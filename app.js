@@ -15,13 +15,14 @@ const playlistHeader = ['Playlist_Name'];
 
 const fs = require("fs");
 const { parse } = require("csv-parse");
+
 var Genre = [];
 var Artist = [];
 var trackAlbum = [];
 let result = [];
 let playlist = [];
 let list = [];
-
+console.log(list, playlist);
 
 fs.createReadStream("./lab3-data/genres.csv")
   .pipe(parse({ delimiter: ",", from_line: 2 }))
@@ -35,7 +36,7 @@ fs.createReadStream("./lab3-data/genres.csv")
 
 
   function searchByGenre(genreName){
-    
+
     for(let i=0;i<Genre.length;i++){
         var searchname = new RegExp(genreName, "gi");
         let Result = Genre[i][3].match(searchname);
@@ -58,8 +59,7 @@ fs.createReadStream("./lab3-data/genres.csv")
   app.get ('/Genre/:name' , (req , res) =>{
     const { error, value } = validateSearch(req.params.name);
     if (error) {
-      console.log(error)
-      return res.send(error.details);
+      return res.send("Invalid Entry!");
     }
     searchByGenre(req.params.name);
     console.log(result.length);

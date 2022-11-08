@@ -11,7 +11,14 @@ async function SearchByGenre(genre) {
     clearcreatenewplaylist();
     resultCount = 0;
     fetch("http://localhost:3000/Genre/" + genre)
-        .then((res) => res.json())
+        .then(res => {
+            if(!res.ok) {
+                return res.text().then(text => { throw new Error(text) }).then(AbortController)
+               }
+              else {
+               return res.json();
+             }    
+            })
         .then((data) => {
             var i = Object.keys(data).length;
             for (var i = 0; i < Object.keys(data).length; i++) {
@@ -23,6 +30,9 @@ async function SearchByGenre(genre) {
                 alert("No Result Found");
             }
         })
+        .catch(err => {
+            console.log('caught it!',err);
+         });
 
 }
 
@@ -34,7 +44,14 @@ async function SearchByArtist(artist) {
     clearcreatenewplaylist();
     resultCount = 0;
     fetch("http://localhost:3000/Artist/" + artist)
-        .then((res) => res.json())
+        .then(res => {
+            if(!res.ok) {
+                return res.text().then(text => { throw new Error(text) }).then(AbortController)
+            }
+            else {
+            return res.json();
+            }    
+            })
         .then((data) => {
             var i = Object.keys(data).length;
             for (var i = 0; i < Object.keys(data).length; i++) {
@@ -55,7 +72,14 @@ async function SearchByTrack(track) {
     totalplaylistitems = 0;
     resultCount = 0;
     fetch("http://localhost:3000/trackAlbum/" + track)
-        .then((res) => res.json())
+        .then(res => {
+            if(!res.ok) {
+                return res.text().then(text => { throw new Error(text) }).then(AbortController)
+            }
+            else {
+            return res.json();
+            }    
+            })
         .then((data) => {
             var i = Object.keys(data).length;
             for (var i = 0; i < Object.keys(data).length; i++) {
@@ -74,7 +98,14 @@ async function showlist(trackID) {
     console.log(totalplaylistitems);
     // console.log("track id : " + trackID);
     fetch("http://localhost:3000/playlist")
-        .then((res) => res.json())
+        .then(res => {
+            if(!res.ok) {
+                return res.text().then(text => { throw new Error(text) }).then(AbortController)
+            }
+            else {
+            return res.json();
+            }    
+            })
         .then((data) => {
             var i = Object.keys(data).length;
             for (var i = 0; i < Object.keys(data).length; i++) {
@@ -101,7 +132,14 @@ async function ShowPlaylist() {
     clearcreatenewplaylist();
     totalplaylistitems = 0;
     fetch("http://localhost:3000/GetplaylistName")
-        .then((res) => res.json())
+        .then(res => {
+            if(!res.ok) {
+                return res.text().then(text => { throw new Error(text) }).then(AbortController)
+            }
+            else {
+            return res.json();
+            }    
+            })
         .then((data) => {
             var i = Object.keys(data).length;
             for (var i = 0; i < Object.keys(data).length; i++) {
@@ -117,7 +155,14 @@ async function ShowPlaylistItem(playlistname) {
     clearplaylistitem();
     console.log("req sent");
     fetch("http://localhost:3000/GetplaylistItem/" + playlistname)
-        .then((res) => res.json())
+        .then(res => {
+            if(!res.ok) {
+                return res.text().then(text => { throw new Error(text) }).then(AbortController)
+            }
+            else {
+            return res.json();
+            }    
+            })
         .then((data) => {
             var i = Object.keys(data).length;
             for (var i = 0; i < Object.keys(data).length; i++) {
@@ -488,7 +533,14 @@ async function CreateItemElement(playlistname, data) {
     const playlistUL = document.getElementById(playlistname);
     console.log("client side data : " + data + "   " + playlistname);
     fetch("http://localhost:3000/getTrack/" + data)
-        .then((res) => res.json())
+        .then(res => {
+            if(!res.ok) {
+                return res.text().then(text => { throw new Error(text) }).then(AbortController)
+            }
+            else {
+            return res.json();
+            }    
+            })
         .then((data) => {
             var i = Object.keys(data).length;
             for (var i = 0; i < Object.keys(data).length; i++) {
