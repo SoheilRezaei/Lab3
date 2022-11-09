@@ -456,9 +456,6 @@ function createSearchElement(newResult) {
     newdiv.appendChild(document.createTextNode("Duration : " + newResult[9]));
     newdiv.appendChild(document.createElement("br"));
 
-    // newdiv.appendChild(document.createTextNode("Genre : " + newResult[10]));
-    // newdiv.appendChild(document.createElement("br"));
-
     newdiv.appendChild(document.createTextNode("Track number : " + newResult[11]));
     newdiv.appendChild(document.createElement("br"));
 
@@ -490,7 +487,6 @@ function clearplaylistSearch() {
 let totalplaylistshow = 0;
 
 function clearplaylistshow() {
-
     if (totalplaylistshow > 0) {
         var j = 0;
         while (j < totalplaylistshow) {
@@ -535,7 +531,6 @@ function createList(res, trackID) {
     newButton.setAttribute("class", "inputstyle2   ");
     newButton.setAttribute("id", "playlistItem")
     newButton.setAttribute("onclick", "addToList('" + res + "','" + trackID + "')");
-    //   newButton.setAttribute("id", res);
     searchDiv.insertBefore(newButton, newList);
     totalplaylist += 1;
 
@@ -559,6 +554,30 @@ function CreateplayListElement(name) {
     newplay.setAttribute("class", "inputstyle2");
     newplay.setAttribute("onclick", "ShowPlaylistItem('" + name + "')");
     newplaylistDiv.appendChild(newplay);
+
+    const totaltrack = document.createElement("button")
+    newplaylistDiv.appendChild(totaltrack);
+    totaltrack.setAttribute("class" , "inputstyle3");
+
+
+    const SortByArtist = document.createElement("button");
+    SortByArtist.setAttribute("onclick" , "sortbyArtist('" + name+ "')");
+    SortByArtist.setAttribute("class" , "inputstyle3");
+    SortByArtist.appendChild(document.createTextNode("Sort By Artist"));
+    newplaylistDiv.appendChild(SortByArtist);
+
+
+    const SortByTrack = document.createElement("button");
+    SortByTrack.setAttribute("onclick" , "sortbyTrack('" + name+ "')");
+    SortByTrack.setAttribute("class" , "inputstyle3");
+    SortByTrack.appendChild(document.createTextNode("Sort By Track"));
+    newplaylistDiv.appendChild(SortByTrack);
+
+    const SortByAlbum = document.createElement("button");
+    SortByAlbum.setAttribute("onclick" , "sortbyAlbum('" + name+ "')");
+    SortByAlbum.setAttribute("class" , "inputstyle3");
+    SortByAlbum.appendChild(document.createTextNode("Sort By Album"));
+    newplaylistDiv.appendChild(SortByAlbum);
 
     const deletebutton = document.createElement("input");
     deletebutton.setAttribute("onclick", "RemovePlaylist('" + name + "')");
