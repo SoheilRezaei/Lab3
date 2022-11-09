@@ -312,6 +312,14 @@ function sortbyTrack(playlistname){
      })
 }
 
+function sortbyAlbum(playlistname){
+    console.log("client side sort by artist");
+    fetch("http://localhost:3000/SortByAlbum")
+    .then(function(){
+        ShowPlaylistItem(playlistname)
+     })
+}
+
 const searchDiv = document.getElementById("searchDiv");
 searchDiv.setAttribute("class", "searchdiv")
 const newList = document.createElement("ul");
