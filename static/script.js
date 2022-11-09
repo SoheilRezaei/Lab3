@@ -8,6 +8,7 @@ async function SearchByGenre(genre) {
     clearList();
     clearplaylistSearch();
     clearplaylistshow();
+    timeSum();
     clearcreatenewplaylist();
     resultCount = 0;
     fetch("http://localhost:3000/Genre/" + genre)
@@ -31,7 +32,7 @@ async function SearchByGenre(genre) {
             }
         })
         .catch(err => {
-            console.log('caught it!',err);
+            console.log("caught it!",err);
          });
 
 }
@@ -598,4 +599,35 @@ async function CreateItemElement(playlistname, data) {
 
 
 
+}
+
+function timeSum() {
+Time = [];    
+Time[1] = "2:48";
+Time[2] = "7:31";
+
+time3 = formatTime(timeToSEC(Time[1]) + timeToSEC(Time[2]));
+console.log(time3);
+
+function timeToSEC(time) {
+    console.log(time);
+    var seg = time.split(":");
+    return (seg[0]*60) + (+seg[1]);
+}
+
+function zeroPad(num) {
+    if (num < 10) {
+        return "0"+num;
+    }   else    {
+        return ""+num;
+    }    
+}
+
+function formatTime(seconds) {
+
+    return [
+        zeroPad(Math.floor(seconds/60)%60),
+        zeroPad(seconds%60),
+    ].join(":");
+}
 }

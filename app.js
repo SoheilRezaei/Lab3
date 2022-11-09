@@ -59,7 +59,7 @@ fs.createReadStream("./lab3-data/genres.csv")
   app.get ('/Genre/:name' , (req , res) =>{
     const { error, value } = validateSearch(req.params.name);
     if (error) {
-      return res.send("Invalid Entry!");
+      return res.send("Invalid Input");
     }
     searchByGenre(req.params.name);
     console.log(result.length);
@@ -188,31 +188,74 @@ fs.createReadStream("./lab3-data/List.csv")
 });
 
 
-
+function completingList(){
+  for (i = 0 ; i < list.length ; i++){
+    for (j = 0 ; j < trackAlbum.length ; j++){
+      if (list[i][1] == trackAlbum[j][0]){
+        list[i][2] = trackAlbum[j][3];
+        list[i][3] = trackAlbum[j][4];
+        list[i][4] = trackAlbum[j][5];
+      }
+    }
+  }
+}
 
 app.get('/playlist/:playlist/:trackid' , (req , res) =>{
 
+
+  flag = AddTrackToPlaylist(req.params.playlist , req.params.trackid);
+  console.log("flag : " + flag)
+  if (flag == 1){
+    res.send("Successful");
+  }else{
+    res.send("Unsuccessful");
+  }
  
-    list.push([ req.params.playlist  , req.params.trackid ]);
-    const val = convertArrayToCSV(list, {
-      listHeader,
-      seperator: ','
-    });
-    console.log(val);
+    // list.push([ req.params.playlist  , req.params.trackid ]);
+    // const val = convertArrayToCSV(list, {
+    //   listHeader,
+    //   seperator: ','
+    // });
+    // console.log(val);
 
-    fs.writeFile('./lab3-data/List.csv', val, (err) => {
-      if (err) throw err;
-      console.log('Playlist info updated!');
-    });    
-    res.status(200).send();
-    result.length = 0;
-    });
+    // fs.writeFile('./lab3-data/List.csv', val, (err) => {
+    //   if (err) throw err;
+    //   console.log('Playlist info updated!');
+    // });    
+    // res.status(200).send();
+    // result.length = 0;
+    // });
   
-
+    function AddTrackToPlaylist(playlist , trackid){
+      flag = 0
+      for (i=0 ; i<list.length ; i++){
+        if(list[i][0] == playlist && list[i][1] == trackid){
+        console.log("found in :" + i)
+        flag = 1;
+        return 0;}
+      }
+  
+      if (flag == 0){
+        list.push([ playlist  , trackid ]);
+      const val = convertArrayToCSV(list, {
+        listHeader,
+        seperator: ','
+      });
+  
+      fs.writeFile('./lab3-data/List.csv', val, (err) => {
+        if (err) throw err;
+        console.log('The file has been saved!');
+      });  
+      return 1;
+      }
+    }       
+      res.status(200).send();
+      result.length = 0;
+      });
 
 
 app.get ('/getTrack/:trackID', (req, res) => {
-  const { error, value } = validateSearch(req.params.name);
+  const { error, value } = validateSearch(req.params.trackID);
   if (error) {
     console.log(error)
     return res.send(error.details);
@@ -236,6 +279,7 @@ function searchInTrack(trackId){
 
 
 app.get('/GetplaylistName' , (req , res) =>{
+completingList();  
 res.send(playlist);
 result.length = 0;
 });
@@ -266,11 +310,6 @@ function returnplaylistItem(playlistname){
 
 
 app.get('/RemovePlayList/:playlistname' , (req , res) =>{
-  const { error, value } = validateSearch(req.params.name);
-  if (error) {
-    console.log(error)
-    return res.send(error.details);
-  }
   RemoveFromPlaylist(req.params.playlistname);
   RemoveFromlist(req.params.playlistname);
   res.status(200).send();
@@ -278,7 +317,7 @@ app.get('/RemovePlayList/:playlistname' , (req , res) =>{
   });
 
 function RemoveFromPlaylist(playlistname){
-  for ( i = 0 ; i<playlist.length ; i++){
+  for ( i = 0; i < playlist.length; i++){
     if(playlist[i] == playlistname){
       playlist.splice(i,1);
     }
@@ -294,7 +333,6 @@ fs.writeFile('./lab3-data/playlist.csv', val, (err) => {
   console.log('Playlist modified!');
 });    
 
-
   console.log(playlist);
 }
 function RemoveFromlist(playlistName){
@@ -309,7 +347,7 @@ function RemoveFromlist(playlistName){
     seperator: ','
   });
 
-fs.writeFile('./List.csv', val, (err) => {
+fs.writeFile('./lab3-data/List.csv', val, (err) => {
   if (err) throw err;
   console.log('Playlist Details have been modified!')
 })
@@ -322,53 +360,49 @@ console.log(list);
 
 
 app.get('/AddtoPlayList/:nameofplaylist' , (req , res) =>{
-  const { error, value } = validateSearch(req.params.name);
+  const { error, value } = validateSearch(req.params.nameofplaylist);
   if (error) {
     console.log(error)
     return res.send(error.details);
   }
-  Addnewplaylist(req.params.nameofplaylist)
-  res.status(200).send();
+  falg = Addnewplaylist(req.params.nameofplaylist);
+  if (flag == 1)
+  res.send("yes");
+  else
+  res.send("no")
   result.length = 0;
   });
+
+  
   
   
 function Addnewplaylist(playlistname){
   flag = 0;
-  for ( i = 0 ; i<playlist.length ; i++){
+  for ( i = 0; i < playlist.length; i++){
     if(playlist[i] == playlistname){
       res.send("Already Exists!");
       flag = 1;
+      return 0;
     }
     
   }
   if (flag==0){
     playlist.push([playlistname]);
+
+    const val = convertArrayToCSV(playlist, {
+      playlistHeader,
+      seperator: ','
+    });
+  
+   fs.writeFile('./lab3-data/playlist.csv', val, (err) => {
+      if (err) throw err;
+      console.log('Playlists were updated!');
+    });    
   }
-
-
-
-  const val = convertArrayToCSV(playlist, {
-    playlistHeader,
-    seperator: ','
-  });
-  
-  fs.writeFile('./lab3-data/playlist.csv', val, (err) => {
-    if (err) throw err;
-    console.log('Playlists were updated!');
-  });    
-  
   
     console.log(playlist);
-  
+    return 1;
 }
-
-
-
-
-
-
-
 
 
 
