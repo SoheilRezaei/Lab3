@@ -405,7 +405,93 @@ function Addnewplaylist(playlistname){
 }
 
 
+app.get('/SortByArtist' , (req , res) =>{
+  sortbyArtist();
+  sortbyArtist();
+  sortbyArtist();
+  sortbyArtist();
+  res.status(200).send();
+  result.length = 0;
+  });
 
+
+function sortbyArtist(){
+      for (let i = 1; i < list.length; i++) {
+          let current = list[i];
+          let j = i-1; 
+          while ((j > -1) && (current[4] < list[j][4])) {
+              list[j+1] = list[j];
+              j--;
+          }
+          list[j+1] = current;
+      }
+
+}
+
+app.get('/SortByTrack' , (req , res) =>{
+  sortbyTrack();
+  sortbyTrack();
+  sortbyTrack();
+  sortbyTrack();
+  res.status(200).send();
+  result.length = 0;
+  });
+
+
+function sortbyTrack(){
+      for (let i = 1; i < list.length; i++) {
+          let current = list[i];
+          let j = i-1; 
+          while ((j > -1) && (current[3] < list[j][3])) {
+              list[j+1] = list[j];
+              j--;
+          }
+          list[j+1] = current;
+      }
+
+}
+
+app.get('/SortByAlbum' , (req , res) =>{
+  sortbyAlbum();
+  sortbyAlbum();
+  sortbyAlbum();
+  sortbyAlbum();
+  res.status(200).send();
+  result.length = 0;
+  });
+
+
+function sortbyAlbum(){
+      for (let i = 1; i < list.length; i++) {
+          let current = list[i];
+          let j = i-1; 
+          while ((j > -1) && (current[2] < list[j][2])) {
+              list[j+1] = list[j];
+              j--;
+          }
+          list[j+1] = current;
+      }
+
+}
+
+app.get('/Getnumberoftrack/:playlistname' , (req , res) =>{
+  console.log("request recieved :" + req.params.playlistname);
+  let count = [GetNumbeerOfTrackInPlaylist(req.params.playlistname)];
+  console.log("fuck this shit : "+count);
+  res.send(count);
+  result= [];
+  });
+
+
+  function GetNumbeerOfTrackInPlaylist(playlist){
+   let count = 0
+    for (let i = 0; i < list.length; i++) {
+     if (list[i][0] == playlist){
+      count++;
+     }
+  }
+  return count;
+  }
 
 
 
