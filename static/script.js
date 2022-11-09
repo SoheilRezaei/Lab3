@@ -286,8 +286,9 @@ function AddPlaylistMenu() {
 function Addtoplaylist(value) {
     fetch("http://localhost:3000/AddtoPlayList/" + value)
         .then((response) => response.text())
-        .then((text) => {      
-            if (text == "yes"){
+        .then((text) => {   
+            console.log(text);   
+            if (text == "Successful"){
             ShowPlaylist();
             }
             else {
@@ -555,10 +556,8 @@ function CreateplayListElement(name) {
     newplay.setAttribute("onclick", "ShowPlaylistItem('" + name + "')");
     newplaylistDiv.appendChild(newplay);
 
-    const totaltrack = document.createElement("button")
+    const totaltrack = document.createElement("p")
     newplaylistDiv.appendChild(totaltrack);
-    totaltrack.setAttribute("class" , "inputstyle3");
-
 
     const SortByArtist = document.createElement("button");
     SortByArtist.setAttribute("onclick" , "sortbyArtist('" + name+ "')");
@@ -591,6 +590,14 @@ function CreateplayListElement(name) {
     playlistUL.setAttribute("id", name);
     newplaylistDiv.appendChild(playlistUL);
 
+
+    fetch("http://localhost:3000/Getnumberoftrack/" + name)
+        .then((res) => res.json())
+        .then((data) => {
+            totaltrack.appendChild(document.createTextNode("Total Number of Tracks : " + data))
+        
+            console.log("text : "+ data);
+        })
 }
 
 
@@ -629,13 +636,6 @@ async function CreateItemElement(playlistname, data) {
             newimg.setAttribute("class", "searchimgstyle");
             newdiv.appendChild(newimg);
             newdiv.appendChild(document.createElement("br"));
-
-            // const addButton = document.createElement("button")
-            // addButton.appendChild(document.createTextNode("Add to Playlist"))
-            // addButton.setAttribute("onclick" , "showlist('"+newResult[0]+"')");
-            // addButton.setAttribute("class" , "inputstyle2");
-            // newdiv.appendChild(addButton);
-            // newdiv.appendChild(document.createElement("br"));
 
             newdiv.appendChild(document.createTextNode("Album Name : " + newResult[3]));
             newdiv.appendChild(document.createElement("br"));

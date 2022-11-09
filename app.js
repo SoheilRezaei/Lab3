@@ -2,6 +2,7 @@
 const { convertArrayToCSV } = require('convert-array-to-csv');
 const converter = require('convert-array-to-csv');
 const csv = require('csv-parser')
+const res = require('express/lib/response');
 const express = require('express');
 const Joi = require('joi')
 const app = express();
@@ -66,7 +67,7 @@ fs.createReadStream("./lab3-data/genres.csv")
     if(result.length<=40){
     res.send(result);
     }
-    result.length = 0
+    result = [];
 });
 
 
@@ -106,7 +107,7 @@ function searchByArtist(artistName){
     if(result.length<=40){
     res.send(result);
     }
-    result.length = 0
+    result = [];
     
 
 });
@@ -135,7 +136,7 @@ app.get ('/trackAlbum/:name' , (req , res) =>{
     if(result.length<=40){
     res.send(result);
     }
-    result.length = 0
+    result = [];
     
 });
 
@@ -169,7 +170,7 @@ fs.createReadStream("./lab3-data/playlist.csv")
 app.get('/playlist' , (req , res) =>{
 
 res.send(playlist);
-result.length = 0;
+result = [];
 });
 
 
@@ -202,7 +203,6 @@ function completingList(){
 
 app.get('/playlist/:playlist/:trackid' , (req , res) =>{
 
-
   flag = AddTrackToPlaylist(req.params.playlist , req.params.trackid);
   console.log("flag : " + flag)
   if (flag == 1){
@@ -210,21 +210,6 @@ app.get('/playlist/:playlist/:trackid' , (req , res) =>{
   }else{
     res.send("Unsuccessful");
   }
- 
-    // list.push([ req.params.playlist  , req.params.trackid ]);
-    // const val = convertArrayToCSV(list, {
-    //   listHeader,
-    //   seperator: ','
-    // });
-    // console.log(val);
-
-    // fs.writeFile('./lab3-data/List.csv', val, (err) => {
-    //   if (err) throw err;
-    //   console.log('Playlist info updated!');
-    // });    
-    // res.status(200).send();
-    // result.length = 0;
-    // });
   
     function AddTrackToPlaylist(playlist , trackid){
       flag = 0
@@ -232,25 +217,26 @@ app.get('/playlist/:playlist/:trackid' , (req , res) =>{
         if(list[i][0] == playlist && list[i][1] == trackid){
         console.log("found in :" + i)
         flag = 1;
-        return 0;}
+        return 0;
       }
+    }
   
       if (flag == 0){
         list.push([ playlist  , trackid ]);
-      const val = convertArrayToCSV(list, {
-        listHeader,
-        seperator: ','
-      });
+        const val = convertArrayToCSV(list, {
+          listHeader,
+          seperator: ','
+        });
   
-      fs.writeFile('./lab3-data/List.csv', val, (err) => {
-        if (err) throw err;
-        console.log('The file has been saved!');
-      });  
-      return 1;
+        fs.writeFile('./lab3-data/List.csv', val, (err) => {
+          if (err) throw err;
+          console.log('The file has been saved!');
+        });  
+        return 1;
       }
     }       
       res.status(200).send();
-      result.length = 0;
+      result = [];
       });
 
 
@@ -279,9 +265,9 @@ function searchInTrack(trackId){
 
 
 app.get('/GetplaylistName' , (req , res) =>{
-completingList();  
-res.send(playlist);
-result.length = 0;
+  completingList();  
+  res.send(playlist);
+  result.length = 0;
 });
 
 
@@ -365,12 +351,15 @@ app.get('/AddtoPlayList/:nameofplaylist' , (req , res) =>{
     console.log(error)
     return res.send(error.details);
   }
-  falg = Addnewplaylist(req.params.nameofplaylist);
-  if (flag == 1)
-  res.send("yes");
-  else
-  res.send("no")
-  result.length = 0;
+  flag = Addnewplaylist(req.params.nameofplaylist);
+  if (flag == 1) {
+    res.send("Successful");
+    result = [];
+  }
+  else {
+    res.send("Unsuccessful")
+    result = [];
+    }
   });
 
   
@@ -386,7 +375,7 @@ function Addnewplaylist(playlistname){
     }
     
   }
-  if (flag==0){
+  if (flag == 0){
     playlist.push([playlistname]);
 
     const val = convertArrayToCSV(playlist, {
@@ -477,9 +466,8 @@ function sortbyAlbum(){
 app.get('/Getnumberoftrack/:playlistname' , (req , res) =>{
   console.log("request recieved :" + req.params.playlistname);
   let count = [GetNumbeerOfTrackInPlaylist(req.params.playlistname)];
-  console.log("fuck this shit : "+count);
   res.send(count);
-  result= [];
+  result = [];
   });
 
 
