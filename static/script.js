@@ -8,7 +8,7 @@ async function SearchByGenre(genre) {
     clearList();
     clearplaylistSearch();
     clearplaylistshow();
-    timeSum();
+    // timeSum();
     clearcreatenewplaylist();
     resultCount = 0;
     fetch("http://localhost:3000/Genre/" + genre)
@@ -97,7 +97,6 @@ async function SearchByTrack(track) {
 async function showlist(trackID) {
     clearplaylistSearch();
     console.log(totalplaylistitems);
-    // console.log("track id : " + trackID);
     fetch("http://localhost:3000/playlist")
         .then(res => {
             if(!res.ok) {
@@ -121,9 +120,19 @@ async function showlist(trackID) {
 async function addToList(playlistName, trackID) {
     console.log("track id : " + trackID);
     fetch("http://localhost:3000/playlist/" + playlistName + "/" + trackID)
-        .then(alert("Track ID " + trackID + " has been added to " + playlistName));
-
+    .then((text) => {   
+        console.log("add track to playlist: " + text);   
+        if (text == "yes"){
+            
+            alert("Track ID " + trackID +" has been added to "+ playlistName)
+        }
+        else {
+            alert("track already exists in "+playlistName);
+        }
+    });
+    
 }
+
 
 
 async function ShowPlaylist() {
@@ -260,17 +269,40 @@ function AddPlaylistMenu() {
     playlistInput.setAttribute("onclick", "Addtoplaylist(document.getElementById('nameofnewplaylist').value)");
     createplaylistDiv.appendChild(playlistInput);
 
+    playlistnameInput.addEventListener("keypress", (evt) => {
+        const theEvent = evt || window.event;
+        let key = theEvent.keyCode || theEvent.which;
+        key = String.fromCharCode(key);
+        const regex = /^[a-zA-Z0-9_]*$/;
+        if (!regex.test(key)) {
+            theEvent.returnValue = false;
+            if (theEvent.preventDefault) theEvent.preventDefault();
+        }
+    });
+
 }
 
 
 function Addtoplaylist(value) {
     fetch("http://localhost:3000/AddtoPlayList/" + value)
-        .then(function() {
-            console.log("play list removed");
+        .then((response) => response.text())
+        .then((text) => {      
+            if (text == "yes"){
             ShowPlaylist();
-        });
+            }
+            else {
+                alert("Playlist already exists!");
+            }
+        }); 
 }
 
+function sortbyArtist(playlistname){
+    console.log("client side sort by artist");
+    fetch("http://localhost:3000/SortByArtist")
+    .then(function(){
+        ShowPlaylistItem(playlistname)
+     })
+}
 
 const searchDiv = document.getElementById("searchDiv");
 searchDiv.setAttribute("class", "searchdiv")
