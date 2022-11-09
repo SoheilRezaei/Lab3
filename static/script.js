@@ -4,22 +4,83 @@ let trackID;
 let trackDetail = [];
 
 
+function clrli() {
+    if (clearCount > 0) {
+        var j = 0;
+        while (j < clearCount) {
+            var oo = document.getElementById("newli").remove();
+            clearCount -= 1;
+        }
+    }
+}
+let totalplaylist = 0;
+
+function clrPlaylistSearch() {
+    if (totalplaylist > 0) {
+        var j = 0;
+        while (j < totalplaylist) {
+            var oo = document.getElementById("playlistItem").remove();
+            totalplaylist -= 1;
+        }
+    }
+}
+let totalplaylistshow = 0;
+
+function clrPlaylistMenu() {
+    if (totalplaylistshow > 0) {
+        var j = 0;
+        while (j < totalplaylistshow) {
+            var oo = document.getElementById("newplaylistdiv").remove();
+            totalplaylistshow -= 1;
+        }
+    }
+}
+
+let totalplaylistitems = 0;
+
+function clrPlaylistli() {
+
+    if (totalplaylistitems > 0) {
+        var j = 0;
+        while (j < totalplaylistitems) {
+            var oo = document.getElementById("playlistli").remove();
+            totalplaylistitems -= 1;
+        }
+    }
+}
+
+
+let totalcreatenewplaylist = 0;
+
+function clearcreatenewplaylist() {
+
+    if (totalcreatenewplaylist > 0) {
+        var j = 0;
+        while (j < totalcreatenewplaylist) {
+            var oo = document.getElementById("createplaylistdiv").remove();
+            totalcreatenewplaylist -= 1;
+        }
+    }
+}
+
+
 async function SearchByGenre(genre) {
-    clearList();
-    clearplaylistSearch();
-    clearplaylistshow();
+    clrli();
+    clrPlaylistSearch();
+    clrPlaylistMenu();
     // timeSum();
     clearcreatenewplaylist();
     resultCount = 0;
     fetch("http://localhost:3000/Genre/" + genre)
         .then(res => {
-            if(!res.ok) {
-                return res.text().then(text => { throw new Error(text) }).then(AbortController)
-               }
-              else {
-               return res.json();
-             }    
-            })
+            if (!res.ok) {
+                return res.text().then(text => {
+                    throw new Error(text)
+                }).then(AbortController)
+            } else {
+                return res.json();
+            }
+        })
         .then((data) => {
             var i = Object.keys(data).length;
             for (var i = 0; i < Object.keys(data).length; i++) {
@@ -32,27 +93,28 @@ async function SearchByGenre(genre) {
             }
         })
         .catch(err => {
-            console.log("caught it!",err);
-         });
+            console.log("caught it!", err);
+        });
 
 }
 
 async function SearchByArtist(artist) {
     console.log(clearCount);
-    clearList();
-    clearplaylistSearch();
-    clearplaylistshow();
+    clrli();
+    clrPlaylistSearch();
+    clrPlaylistMenu();
     clearcreatenewplaylist();
     resultCount = 0;
     fetch("http://localhost:3000/Artist/" + artist)
         .then(res => {
-            if(!res.ok) {
-                return res.text().then(text => { throw new Error(text) }).then(AbortController)
+            if (!res.ok) {
+                return res.text().then(text => {
+                    throw new Error(text)
+                }).then(AbortController)
+            } else {
+                return res.json();
             }
-            else {
-            return res.json();
-            }    
-            })
+        })
         .then((data) => {
             var i = Object.keys(data).length;
             for (var i = 0; i < Object.keys(data).length; i++) {
@@ -66,21 +128,22 @@ async function SearchByArtist(artist) {
 }
 
 async function SearchByTrack(track) {
-    clearList();
-    clearplaylistshow();
+    clrli();
+    clrPlaylistMenu();
     clearcreatenewplaylist();
-    clearplaylistSearch();
+    clrPlaylistSearch();
     totalplaylistitems = 0;
     resultCount = 0;
     fetch("http://localhost:3000/trackAlbum/" + track)
         .then(res => {
-            if(!res.ok) {
-                return res.text().then(text => { throw new Error(text) }).then(AbortController)
+            if (!res.ok) {
+                return res.text().then(text => {
+                    throw new Error(text)
+                }).then(AbortController)
+            } else {
+                return res.json();
             }
-            else {
-            return res.json();
-            }    
-            })
+        })
         .then((data) => {
             var i = Object.keys(data).length;
             for (var i = 0; i < Object.keys(data).length; i++) {
@@ -95,17 +158,18 @@ async function SearchByTrack(track) {
 }
 
 async function showlist(trackID) {
-    clearplaylistSearch();
+    clrPlaylistSearch();
     console.log(totalplaylistitems);
     fetch("http://localhost:3000/playlist")
         .then(res => {
-            if(!res.ok) {
-                return res.text().then(text => { throw new Error(text) }).then(AbortController)
+            if (!res.ok) {
+                return res.text().then(text => {
+                    throw new Error(text)
+                }).then(AbortController)
+            } else {
+                return res.json();
             }
-            else {
-            return res.json();
-            }    
-            })
+        })
         .then((data) => {
             var i = Object.keys(data).length;
             for (var i = 0; i < Object.keys(data).length; i++) {
@@ -120,36 +184,36 @@ async function showlist(trackID) {
 async function addToList(playlistName, trackID) {
     console.log("track id : " + trackID);
     fetch("http://localhost:3000/playlist/" + playlistName + "/" + trackID)
-    .then((text) => {   
-        console.log("add track to playlist: " + text);   
-        if (text == "yes"){
-            
-            alert("Track ID " + trackID +" has been added to "+ playlistName)
-        }
-        else {
-            alert("track already exists in "+playlistName);
-        }
-    });
-    
+        .then((text) => {
+            console.log("add track to playlist: " + text);
+            if (text == "yes") {
+
+                alert("Track ID " + trackID + " has been added to " + playlistName)
+            } else {
+                alert("track already exists in " + playlistName);
+            }
+        });
+
 }
 
 
 
 async function ShowPlaylist() {
-    clearplaylistshow();
-    clearList();
-    clearplaylistSearch();
+    clrPlaylistMenu();
+    clrli();
+    clrPlaylistSearch();
     clearcreatenewplaylist();
     totalplaylistitems = 0;
     fetch("http://localhost:3000/GetplaylistName")
         .then(res => {
-            if(!res.ok) {
-                return res.text().then(text => { throw new Error(text) }).then(AbortController)
+            if (!res.ok) {
+                return res.text().then(text => {
+                    throw new Error(text)
+                }).then(AbortController)
+            } else {
+                return res.json();
             }
-            else {
-            return res.json();
-            }    
-            })
+        })
         .then((data) => {
             var i = Object.keys(data).length;
             for (var i = 0; i < Object.keys(data).length; i++) {
@@ -162,17 +226,18 @@ async function ShowPlaylist() {
 
 
 async function ShowPlaylistItem(playlistname) {
-    clearplaylistitem();
+    clrPlaylistli();
     console.log("req sent");
     fetch("http://localhost:3000/GetplaylistItem/" + playlistname)
         .then(res => {
-            if(!res.ok) {
-                return res.text().then(text => { throw new Error(text) }).then(AbortController)
+            if (!res.ok) {
+                return res.text().then(text => {
+                    throw new Error(text)
+                }).then(AbortController)
+            } else {
+                return res.json();
             }
-            else {
-            return res.json();
-            }    
-            })
+        })
         .then((data) => {
             var i = Object.keys(data).length;
             for (var i = 0; i < Object.keys(data).length; i++) {
@@ -186,7 +251,7 @@ async function ShowPlaylistItem(playlistname) {
 
 function RemovePlaylist(playlistname) {
     fetch("http://localhost:3000/RemovePlayList/" + playlistname)
-        .then(function() {
+        .then(function () {
             console.log("play list removed");
             ShowPlaylist();
         });
@@ -247,9 +312,9 @@ searchTrack.addEventListener("keypress", (evt) => {
 
 function AddPlaylistMenu() {
     clearcreatenewplaylist();
-    clearList();
-    clearplaylistshow();
-    clearplaylistSearch();
+    clrli();
+    clrPlaylistMenu();
+    clrPlaylistSearch();
     totalcreatenewplaylist += 1;
     const createplaylistDiv = document.createElement("div");
     createplaylistDiv.setAttribute("id", "createplaylistdiv")
@@ -286,39 +351,38 @@ function AddPlaylistMenu() {
 function Addtoplaylist(value) {
     fetch("http://localhost:3000/AddtoPlayList/" + value)
         .then((response) => response.text())
-        .then((text) => {   
-            console.log(text);   
-            if (text == "Successful"){
-            ShowPlaylist();
-            }
-            else {
+        .then((text) => {
+            console.log(text);
+            if (text == "Successful") {
+                ShowPlaylist();
+            } else {
                 alert("Playlist already exists!");
             }
-        }); 
+        });
 }
 
-function sortbyArtist(playlistname){
+function sortbyArtist(playlistname) {
     console.log("client side sort by artist");
     fetch("http://localhost:3000/SortByArtist")
-    .then(function(){
-        ShowPlaylistItem(playlistname)
-     })
+        .then(function () {
+            ShowPlaylistItem(playlistname)
+        })
 }
 
-function sortbyTrack(playlistname){
+function sortbyTrack(playlistname) {
     console.log("client side sort by artist");
     fetch("http://localhost:3000/SortByTrack")
-    .then(function(){
-        ShowPlaylistItem(playlistname)
-     })
+        .then(function () {
+            ShowPlaylistItem(playlistname)
+        })
 }
 
-function sortbyAlbum(playlistname){
+function sortbyAlbum(playlistname) {
     console.log("client side sort by artist");
     fetch("http://localhost:3000/SortByAlbum")
-    .then(function(){
-        ShowPlaylistItem(playlistname)
-     })
+        .then(function () {
+            ShowPlaylistItem(playlistname)
+        })
 }
 
 const searchDiv = document.getElementById("searchDiv");
@@ -464,67 +528,6 @@ function createSearchElement(newResult) {
 }
 
 
-
-function clearList() {
-    if (clearCount > 0) {
-        var j = 0;
-        while (j < clearCount) {
-            var oo = document.getElementById("newli").remove();
-            clearCount -= 1;
-        }
-    }
-}
-let totalplaylist = 0;
-
-function clearplaylistSearch() {
-    if (totalplaylist > 0) {
-        var j = 0;
-        while (j < totalplaylist) {
-            var oo = document.getElementById("playlistItem").remove();
-            totalplaylist -= 1;
-        }
-    }
-}
-let totalplaylistshow = 0;
-
-function clearplaylistshow() {
-    if (totalplaylistshow > 0) {
-        var j = 0;
-        while (j < totalplaylistshow) {
-            var oo = document.getElementById("newplaylistdiv").remove();
-            totalplaylistshow -= 1;
-        }
-    }
-}
-
-let totalplaylistitems = 0;
-
-function clearplaylistitem() {
-
-    if (totalplaylistitems > 0) {
-        var j = 0;
-        while (j < totalplaylistitems) {
-            var oo = document.getElementById("playlistli").remove();
-            totalplaylistitems -= 1;
-        }
-    }
-}
-
-
-let totalcreatenewplaylist = 0;
-
-function clearcreatenewplaylist() {
-
-    if (totalcreatenewplaylist > 0) {
-        var j = 0;
-        while (j < totalcreatenewplaylist) {
-            var oo = document.getElementById("createplaylistdiv").remove();
-            totalcreatenewplaylist -= 1;
-        }
-    }
-}
-
-
 function createList(res, trackID) {
 
     const newButton = document.createElement("button");
@@ -560,21 +563,21 @@ function CreateplayListElement(name) {
     newplaylistDiv.appendChild(totaltrack);
 
     const SortByArtist = document.createElement("button");
-    SortByArtist.setAttribute("onclick" , "sortbyArtist('" + name+ "')");
-    SortByArtist.setAttribute("class" , "inputstyle3");
+    SortByArtist.setAttribute("onclick", "sortbyArtist('" + name + "')");
+    SortByArtist.setAttribute("class", "inputstyle3");
     SortByArtist.appendChild(document.createTextNode("Sort By Artist"));
     newplaylistDiv.appendChild(SortByArtist);
 
 
     const SortByTrack = document.createElement("button");
-    SortByTrack.setAttribute("onclick" , "sortbyTrack('" + name+ "')");
-    SortByTrack.setAttribute("class" , "inputstyle3");
+    SortByTrack.setAttribute("onclick", "sortbyTrack('" + name + "')");
+    SortByTrack.setAttribute("class", "inputstyle3");
     SortByTrack.appendChild(document.createTextNode("Sort By Track"));
     newplaylistDiv.appendChild(SortByTrack);
 
     const SortByAlbum = document.createElement("button");
-    SortByAlbum.setAttribute("onclick" , "sortbyAlbum('" + name+ "')");
-    SortByAlbum.setAttribute("class" , "inputstyle3");
+    SortByAlbum.setAttribute("onclick", "sortbyAlbum('" + name + "')");
+    SortByAlbum.setAttribute("class", "inputstyle3");
     SortByAlbum.appendChild(document.createTextNode("Sort By Album"));
     newplaylistDiv.appendChild(SortByAlbum);
 
@@ -595,8 +598,8 @@ function CreateplayListElement(name) {
         .then((res) => res.json())
         .then((data) => {
             totaltrack.appendChild(document.createTextNode("Total Number of Tracks : " + data))
-        
-            console.log("text : "+ data);
+
+            console.log("text : " + data);
         })
 }
 
@@ -609,13 +612,14 @@ async function CreateItemElement(playlistname, data) {
     console.log("client side data : " + data + "   " + playlistname);
     fetch("http://localhost:3000/getTrack/" + data)
         .then(res => {
-            if(!res.ok) {
-                return res.text().then(text => { throw new Error(text) }).then(AbortController)
+            if (!res.ok) {
+                return res.text().then(text => {
+                    throw new Error(text)
+                }).then(AbortController)
+            } else {
+                return res.json();
             }
-            else {
-            return res.json();
-            }    
-            })
+        })
         .then((data) => {
             var i = Object.keys(data).length;
             for (var i = 0; i < Object.keys(data).length; i++) {
@@ -669,32 +673,32 @@ async function CreateItemElement(playlistname, data) {
 }
 
 function timeSum() {
-Time = [];    
-Time[1] = "2:48";
-Time[2] = "7:31";
+    Time = [];
+    Time[1] = "2:48";
+    Time[2] = "7:31";
 
-time3 = formatTime(timeToSEC(Time[1]) + timeToSEC(Time[2]));
-console.log(time3);
+    time3 = formatTime(timeToSEC(Time[1]) + timeToSEC(Time[2]));
+    console.log(time3);
 
-function timeToSEC(time) {
-    console.log(time);
-    var seg = time.split(":");
-    return (seg[0]*60) + (+seg[1]);
-}
+    function timeToSEC(time) {
+        console.log(time);
+        var seg = time.split(":");
+        return (seg[0] * 60) + (+seg[1]);
+    }
 
-function zeroPad(num) {
-    if (num < 10) {
-        return "0"+num;
-    }   else    {
-        return ""+num;
-    }    
-}
+    function zeroPad(num) {
+        if (num < 10) {
+            return "0" + num;
+        } else {
+            return "" + num;
+        }
+    }
 
-function formatTime(seconds) {
+    function formatTime(seconds) {
 
-    return [
-        zeroPad(Math.floor(seconds/60)%60),
-        zeroPad(seconds%60),
-    ].join(":");
-}
+        return [
+            zeroPad(Math.floor(seconds / 60) % 60),
+            zeroPad(seconds % 60),
+        ].join(":");
+    }
 }

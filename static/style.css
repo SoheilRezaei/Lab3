@@ -15,26 +15,32 @@ body{
 }
 
 .divstyle{
-margin-top: 60px;
-text-align: center;
+    margin-top: 60px;
+    text-align: center;
 }   
 
 .inputstyle {
-border-radius: 5px;
-height: 25px;
+    background-color: rgba(248, 0, 0, 0.055);
+    border-radius: 5px;
+    border-color: fuchsia;
+    height: 25px;
 
 }
 
 .inputstyle2 {
     border-radius: 5px;
+    background-color: rgba(248, 0, 0, 0.055);
     background-color: rgba(168, 14, 147, 0.438);
+    border-color: fuchsia;
     margin: 20px;
     padding: 10px;
 }
 
 .inputstyle3 {
     border-radius: 5px;
+    background-color: rgba(248, 0, 0, 0.055);
     background-color: rgba(234, 0, 255, 0.644);
+    border-color: fuchsia;
     padding: 10px;
 }
 
@@ -44,10 +50,10 @@ height: 25px;
 } 
 
 .searchimg{
-height: 21px;
-width: 21px;
-vertical-align: middle;
-margin-right: 80px;
+    height: 21px;
+    width: 21px;
+    vertical-align: middle;
+    margin-right: 80px;
 }
 
 .deleteplaylistimg{
@@ -134,7 +140,7 @@ margin-right: 80px;
     border-radius: 20px;
     text-align: center;
     justify-content: center;
-    height: 300px;
+    height: 400px;
     width: 240px;
     padding: 40px;
     
@@ -150,9 +156,9 @@ margin-right: 80px;
 
 
 .searchdiv{
-padding: 10;
-align-items: center;
-text-align: center;
+    padding: 10;
+    align-items: center;
+    text-align: center;
 }
 
 .playlistdiv{
@@ -197,5 +203,5 @@ text-align: center;
 
 
 .xdiv{
-display: inline-block;
+    display: inline-block;
 }
